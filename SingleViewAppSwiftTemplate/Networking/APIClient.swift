@@ -19,6 +19,10 @@ extension APIClient {
   private func decodingTask<T: Decodable>(with request: URLRequest, decodingType: T.Type, completionHandler completion: @escaping JSONTaskCompletionHandler) -> URLSessionDataTask {
     
     let task = session.dataTask(with: request) { data, response, error in
+      if let error = error as? URLError {
+        print("error code: ", error.code)
+      }
+      
       guard let httpResponse = response as? HTTPURLResponse else {
         completion(nil, .requestFailed)
         return
@@ -29,7 +33,6 @@ extension APIClient {
             let genericModel = try JSONDecoder().decode(decodingType, from: data)
             completion(genericModel, nil)
           } catch {
-            print(error.localizedDescription)
             completion(nil, .jsonConversionFailure)
           }
         } else {

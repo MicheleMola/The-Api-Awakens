@@ -20,7 +20,6 @@ class SegmentedControl: UISegmentedControl {
     setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.4)], for: .normal)
     
     setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.white], for: .selected)
-    
   }
   
   @IBInspectable var fontSize: CGFloat = 0.0 {

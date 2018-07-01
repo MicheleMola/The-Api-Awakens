@@ -37,6 +37,9 @@ class DetailStarwarsResourcesController: UITableViewController {
   
   @IBOutlet weak var pickerView: UIPickerView!
   
+  @IBOutlet weak var smallestLabel: UILabel!
+  @IBOutlet weak var largestLabel: UILabel!
+  
   let client = StarwarsAPIClient()
   
   var charactersDataSource = GenericDataSource<Character>(collection: [])
@@ -44,6 +47,11 @@ class DetailStarwarsResourcesController: UITableViewController {
     didSet {
       self.charactersDataSource.update(with: characters)
       self.pickerView.reloadAllComponents()
+      let sortedCharacters = sort(characters, by: \.height)
+      if let min = sortedCharacters.first, let max = sortedCharacters.last {
+        smallestLabel.text = min.name
+        largestLabel.text = max.name
+      }
     }
   }
   
@@ -52,6 +60,11 @@ class DetailStarwarsResourcesController: UITableViewController {
     didSet {
       self.vehiclesDataSource.update(with: vehicles)
       self.pickerView.reloadAllComponents()
+      let sortedVehicles = sort(vehicles, by: \.length)
+      if let min = sortedVehicles.first, let max = sortedVehicles.last {
+        smallestLabel.text = min.name
+        largestLabel.text = max.name
+      }
     }
   }
   
@@ -60,14 +73,26 @@ class DetailStarwarsResourcesController: UITableViewController {
     didSet {
       self.starshipsDataSource.update(with: starships)
       self.pickerView.reloadAllComponents()
+      let sortedStarships = sort(starships, by: \.length)
+      if let min = sortedStarships.first, let max = sortedStarships.last {
+        smallestLabel.text = min.name
+        largestLabel.text = max.name
+      }
     }
   }
   
   var resourceType: ResourceType?
   
+  let spinner = Spinner()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    // Picker View Delegate
     pickerView.delegate = self
+    
+    //Sets spinner
+    self.view.addSubview(spinner)
     
     if let resourceType = resourceType {
       self.navigationItem.title = resourceType.rawValue
@@ -80,6 +105,16 @@ class DetailStarwarsResourcesController: UITableViewController {
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+  
+  // Custom Snippet Pasan Slack
+  func sort<T, U: Comparable>(_ values: [T], by keyPath: KeyPath<T, U>) -> [T] {
+    return values.sorted(by: {
+      if let firstString = $0[keyPath: keyPath] as? String, let firstDouble = Double(firstString), let secondString = $1[keyPath: keyPath] as? String, let secondDouble = Double(secondString) {
+        return firstDouble < secondDouble
+      }
+      return false
+    })
   }
   
   func configureUI(withResourceType resourceType: ResourceType) {
@@ -120,7 +155,9 @@ class DetailStarwarsResourcesController: UITableViewController {
   }
   
   func getCharacters(byPage page: Int) {
+    spinner.start()
     client.getCharacters(byPage: page) { [unowned self] response in
+      self.spinner.stop()
       switch response {
       case .success(let characters):
         guard let characters = characters?.results else { return }
@@ -134,7 +171,9 @@ class DetailStarwarsResourcesController: UITableViewController {
   }
   
   func getStarhips(byPage page: Int) {
+    spinner.start()
     client.getStarships(byPage: page) { [unowned self] response in
+      self.spinner.stop()
       switch response {
       case .success(let starships):
         guard let starships = starships?.results else { return }
@@ -148,7 +187,9 @@ class DetailStarwarsResourcesController: UITableViewController {
   }
   
   func getVehicles(byPage page: Int) {
+    spinner.start()
     client.getVehicles(byPage: page) { [unowned self] response in
+      self.spinner.stop()
       switch response {
       case .success(let vehicles):
         guard let vehicles = vehicles?.results else { return }
@@ -162,81 +203,79 @@ class DetailStarwarsResourcesController: UITableViewController {
   }
   
   func getCharacter(byId id: String) {
+    spinner.start()
     client.getCharacter(withId: id) { [unowned self] response in
       switch response {
       case .success(let character):
         guard let character = character else { return }
-        self.getPlanet(byId: character.idWorldByURL)
-        self.getVehicles(byCharacter: character)
-        self.getStarships(byCharacter: character)
-        self.populateQuickBar(byResource: character)
+        self.getOtherInfo(byCharacter: character)
       case .failure(let error):
         print(error)
       }
     }
   }
   
-  func getVehicles(byCharacter character: Character) {
-    let collectionId = character.idVehiclesByURL
-    var vehiclesValue = [String]()
-    if collectionId.count == 0 {
-      self.vehiclesValue.text = ""
-      return
-    }
+  func getOtherInfo(byCharacter character: Character) {    
+    var planetName = String()
+    var vehiclesName = String()
+    var starshipsName = String()
     
+    let group = DispatchGroup()
     
-    
-    for id in collectionId {
-      client.getVehicle(withId: id) { response in
-        switch response {
-        case .success(let vehicle):
-          guard let vehicle = vehicle else { return }
-          vehiclesValue.append(vehicle.name)
-          if (vehiclesValue.count == collectionId.count) { self.vehiclesValue.text? =  vehiclesValue.joined(separator: " - ")}
-        case .failure(let error):
-          print(error)
-        }
-      }
-    }
-  }
-  
-  func getStarships(byCharacter character: Character) {
-    let collectionId = character.idStarshipsByURL
-    var starshipsValue = [String]()
-    if collectionId.count == 0 {
-      self.starshipsValue.text = ""
-      return
-    }
-    
-    for id in collectionId {
-      client.getStarship(withId: id) { response in
-        switch response {
-        case .success(let starship):
-          guard let starship = starship else { return }
-          starshipsValue.append(starship.name)
-          if (starshipsValue.count == collectionId.count) { self.starshipsValue.text? =  starshipsValue.joined(separator: " - ")}
-        case .failure(let error):
-          print(error)
-        }
-      }
-    }
-  }
-  
-  
-  func getPlanet(byId id: String) {
-    client.getPlanet(withId: id) { [unowned self] response in
+    group.enter()
+    client.getPlanet(withId: character.idWorldByURL) { response in
+      group.leave()
       switch response {
       case .success(let planet):
         guard let planet = planet else { return }
-        self.valueTwo.text = planet.name
+        planetName = planet.name
       case .failure(let error):
         print(error)
       }
     }
+    
+    let collectionIdVehicles = character.idVehiclesByURL
+    if !collectionIdVehicles.isEmpty {
+      group.enter()
+      client.getVehicles(byIds: collectionIdVehicles) { response in
+        group.leave()
+        switch response {
+        case .success(let names):
+          guard let names = names else { return }
+          vehiclesName =  names.joined(separator: " - ")
+        case .failure(let error):
+          print(error)
+        }
+      }
+    }
+    
+    let collectionIdStarships = character.idStarshipsByURL
+    if !collectionIdStarships.isEmpty {
+      group.enter()
+      client.getStarshipsName(byIds: collectionIdStarships) { response in
+        group.leave()
+        switch response {
+        case .success(let names):
+          guard let names = names else { return }
+          starshipsName =  names.joined(separator: " - ")
+        case .failure(let error):
+          print(error)
+        }
+      }
+    }
+    
+    group.notify(queue: .main) {
+      let characterViewModel = CharacterViewModel(character: character, planetName: planetName, vehiclesName: vehiclesName, starshipsName: starshipsName)
+      self.populateQuickBar(byResource: characterViewModel)
+      self.spinner.stop()
+    }
+
   }
   
   func getStarship(byId id: String) {
+    spinner.start()
     client.getStarship(withId: id) { response in
+      self.spinner.stop()
       switch response {
       case .success(let starship):
         guard let starship = starship else { return }
@@ -248,7 +287,9 @@ class DetailStarwarsResourcesController: UITableViewController {
   }
   
   func getVehicle(byId id: String) {
+    spinner.start()
     client.getVehicle(withId: id) { response in
+      self.spinner.stop()
       switch response {
       case .success(let vehicle):
         guard let vehicle = vehicle else { return }
@@ -261,13 +302,15 @@ class DetailStarwarsResourcesController: UITableViewController {
   
   func populateQuickBar(byResource resource: Any) {
     switch resource {
-    case let resource as Character:
+    case let resource as CharacterViewModel:
       nameLabel.text = resource.name
       valueOne.text = resource.birthYear
-      //valueTwo.text = resource.homeWorld
+      valueTwo.text = resource.homeWorld
       valueThree.text = resource.height
       valueFour.text = resource.eyeColor
       valueFive.text = resource.hairColor
+      vehiclesValue.text = resource.vehicles
+      starshipsValue.text = resource.starships
     case let resource as TransportCraft:
       nameLabel.text = resource.name
       valueOne.text = resource.manufacturer

@@ -16,6 +16,8 @@
 		3A8AADE91DF9B85E00A2B931 /* SingleViewAppSwiftTemplateUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8AADE81DF9B85E00A2B931 /* SingleViewAppSwiftTemplateUITests.swift */; };
 		DE2300B920DE8E6A008DDAD6 /* GenericDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2300B820DE8E6A008DDAD6 /* GenericDataSource.swift */; };
 		DE2300BB20DEA4BF008DDAD6 /* TransportCraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2300BA20DEA4BF008DDAD6 /* TransportCraft.swift */; };
+		DE6A599720E79FBE00BB6E48 /* CharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6A599620E79FBE00BB6E48 /* CharacterViewModel.swift */; };
+		DE6A599920E7B47E00BB6E48 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6A599820E7B47E00BB6E48 /* Spinner.swift */; };
 		DE8ED66820DCF57E004CD42A /* ListStarwarsResourcesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8ED66720DCF57E004CD42A /* ListStarwarsResourcesController.swift */; };
 		DE8ED66A20DD0B7B004CD42A /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8ED66920DD0B7B004CD42A /* SegmentedControl.swift */; };
 		DE8ED66D20DD2847004CD42A /* DetailStarwarsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8ED66C20DD2847004CD42A /* DetailStarwarsController.swift */; };
@@ -63,6 +65,8 @@
 		3A8AADEA1DF9B85E00A2B931 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE2300B820DE8E6A008DDAD6 /* GenericDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericDataSource.swift; sourceTree = "<group>"; };
 		DE2300BA20DEA4BF008DDAD6 /* TransportCraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportCraft.swift; sourceTree = "<group>"; };
+		DE6A599620E79FBE00BB6E48 /* CharacterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewModel.swift; sourceTree = "<group>"; };
+		DE6A599820E7B47E00BB6E48 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		DE8ED66720DCF57E004CD42A /* ListStarwarsResourcesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStarwarsResourcesController.swift; sourceTree = "<group>"; };
 		DE8ED66920DD0B7B004CD42A /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		DE8ED66C20DD2847004CD42A /* DetailStarwarsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStarwarsController.swift; sourceTree = "<group>"; };
@@ -125,6 +129,7 @@
 		3A8AADC71DF9B85E00A2B931 /* SingleViewAppSwiftTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				DE6A599520E79F9900BB6E48 /* View Models */,
 				DE8ED66E20DD4C35004CD42A /* Data Sources */,
 				DE9516C220DBDD57009CA12F /* Networking */,
 				DE9516B620DBBF65009CA12F /* Models */,
@@ -157,6 +162,14 @@
 			path = SingleViewAppSwiftTemplateUITests;
 			sourceTree = "<group>";
 		};
+		DE6A599520E79F9900BB6E48 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				DE6A599620E79FBE00BB6E48 /* CharacterViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
 		DE8ED66620DCF549004CD42A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				DE8ED66920DD0B7B004CD42A /* SegmentedControl.swift */,
+				DE6A599820E7B47E00BB6E48 /* Spinner.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -354,6 +368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE9516C120DBD591009CA12F /* Endpoint.swift in Sources */,
+				DE6A599920E7B47E00BB6E48 /* Spinner.swift in Sources */,
 				DE9516BA20DBBFF9009CA12F /* Vehicle.swift in Sources */,
 				DE9516C420DBDD7B009CA12F /* StarwarsAPIClient.swift in Sources */,
 				DE9516C820DBF64C009CA12F /* APIClient.swift in Sources */,
@@ -362,6 +377,7 @@
 				DE9516B820DBBF77009CA12F /* Character.swift in Sources */,
 				DE2300B920DE8E6A008DDAD6 /* GenericDataSource.swift in Sources */,
 				DE8ED66820DCF57E004CD42A /* ListStarwarsResourcesController.swift in Sources */,
+				DE6A599720E79FBE00BB6E48 /* CharacterViewModel.swift in Sources */,
 				DE9516C620DBE34D009CA12F /* APIError.swift in Sources */,
 				3A8AADCB1DF9B85E00A2B931 /* ViewController.swift in Sources */,
 				DE9E782A20DF91460099872F /* Planet.swift in Sources */,

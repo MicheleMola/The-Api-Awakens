@@ -110,6 +110,33 @@ class StarwarsAPIClient: APIClient {
     }, completion: completion)
   }
   
+  typealias StarshipsByCharacterCompletionHandler = (Response<[String]?, APIError>) -> Void
+  func getStarshipsName(byIds ids: [String], completion: @escaping StarshipsByCharacterCompletionHandler)  {
+    let group = DispatchGroup()
+    
+    var starshipsName = [String]()
+    
+    for id in ids {
+      group.enter()
+      
+      getStarship(withId: id) { response in
+        group.leave()
+        switch response {
+        case .success(let starship):
+          guard let starship = starship else { return }
+          starshipsName.append(starship.name)
+        case .failure(let error):
+          completion(Response.failure(error))
+        }
+      }
+    }
+    
+    group.notify(queue: .main) {
+      completion(Response.success(starshipsName))
+    }
+  }
+  
+  //MARK: - Planet
   typealias PlanetCompletionHanler = (Response<Planet?, APIError>) -> Void
   func getPlanet(withId id: String, completion: @escaping PlanetCompletionHanler) {
     let request = StarWars.getPlanet(id: id).request

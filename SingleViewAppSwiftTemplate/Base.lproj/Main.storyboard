@@ -186,7 +186,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="nLB-nT-gDm">
                                                     <rect key="frame" x="20" y="42.5" width="335" height="250"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="SAJ-1y-oa0">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="SAJ-1y-oa0">
                                                             <rect key="frame" x="0.0" y="0.0" width="335" height="20.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Born" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTz-gi-udZ">
@@ -199,7 +199,7 @@
                                                                     <color key="textColor" red="0.54901960780000003" green="0.80000000000000004" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0vE-Pi-G7s">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0vE-Pi-G7s">
                                                                     <rect key="frame" x="80" y="0.0" width="255" height="20.5"/>
                                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -461,7 +461,7 @@
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="1Jh-dh-ehY">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="100" id="1Jh-dh-ehY">
                                         <rect key="frame" x="0.0" y="500" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Jh-dh-ehY" id="Mqe-YM-YGg">
@@ -535,10 +535,12 @@
                         <outlet property="labelOne" destination="MTz-gi-udZ" id="3ow-lh-uWy"/>
                         <outlet property="labelThree" destination="Hhg-wU-TfK" id="y8O-jh-4II"/>
                         <outlet property="labelTwo" destination="d53-DT-tH0" id="8IH-1l-zCC"/>
+                        <outlet property="largestLabel" destination="u42-T8-k8F" id="xyG-Nf-GGg"/>
                         <outlet property="lengthSegmentedControl" destination="g7x-68-fqo" id="kk5-Ut-yCz"/>
                         <outlet property="nameLabel" destination="vpx-A4-XUx" id="f7b-pq-lYQ"/>
                         <outlet property="pickerView" destination="umA-7b-Zah" id="nFn-hW-IRy"/>
                         <outlet property="separatorView" destination="BSC-3T-hCv" id="elq-ca-XwX"/>
+                        <outlet property="smallestLabel" destination="jSr-ko-7Av" id="dSo-EO-EmU"/>
                         <outlet property="starshipsLabel" destination="i40-AC-Daf" id="67q-VF-Qhf"/>
                         <outlet property="starshipsValue" destination="nQu-hv-WW3" id="Jte-sJ-qPB"/>
                         <outlet property="valueFive" destination="49h-8W-SUX" id="n4F-tG-MOO"/>
