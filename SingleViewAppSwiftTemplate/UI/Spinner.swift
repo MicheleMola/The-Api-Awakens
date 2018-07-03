@@ -42,11 +42,13 @@ class Spinner: UIView {
   }
   
   func start() {
+    UIApplication.shared.beginIgnoringInteractionEvents()
     self.isHidden = false
     activityIndicator.startAnimating()
   }
   
   func stop() {
+    UIApplication.shared.endIgnoringInteractionEvents()
     self.isHidden = true
     activityIndicator.stopAnimating()
   }

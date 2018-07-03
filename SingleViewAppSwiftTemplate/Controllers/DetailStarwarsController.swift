@@ -27,6 +27,14 @@ class DetailStarwarsResourcesController: UITableViewController {
   @IBOutlet weak var costSegmentedControl: SegmentedControl!
   @IBOutlet weak var lengthSegmentedControl: SegmentedControl!
   
+  var selectedCostType: String {
+    return costSegmentedControl.titleForSegment(at: costSegmentedControl.selectedSegmentIndex)!
+  }
+  
+  var selectedLengthType: String {
+    return lengthSegmentedControl.titleForSegment(at: lengthSegmentedControl.selectedSegmentIndex)!
+  }
+  
   @IBOutlet weak var vehiclesLabel: UILabel!
   @IBOutlet weak var vehiclesValue: UILabel!
   
@@ -39,6 +47,8 @@ class DetailStarwarsResourcesController: UITableViewController {
   
   @IBOutlet weak var smallestLabel: UILabel!
   @IBOutlet weak var largestLabel: UILabel!
+  
+  @IBOutlet weak var exchangeRateTextField: UITextField!
   
   let client = StarwarsAPIClient()
   
@@ -323,6 +333,74 @@ class DetailStarwarsResourcesController: UITableViewController {
     }
   }
   
+  @IBAction func convertCost() {
+    if let exchangeRateString = exchangeRateTextField.text, let exchangeRateDouble = Double(exchangeRateString), let cost = valueTwo.text, let costDouble = Double(cost) {
+      if selectedCostType == "USD" {
+        let value = costDouble * exchangeRateDouble
+        valueTwo.text = String(value)
+      } else {
+        let value = costDouble / exchangeRateDouble
+        valueTwo.text = String(value)
+      }
+    } else {
+      // Alert
+    }
+  }
+  
+  
+  @IBAction func convertHeight() {
+  
+    if let string = valueThree.text, let height = Double(string) {
+      if selectedLengthType == "English" {
+        let value = Measurement(value: height, unit: UnitLength.centimeters).converted(to: UnitLength.inches).value.rounded(toPlaces: 1)
+        valueThree.text = String(value)
+      } else {
+        let value = Measurement(value: height, unit: UnitLength.inches).converted(to: UnitLength.centimeters).value.rounded(toPlaces: 1)
+        valueThree.text = String(value)
+      }
+    }
+  }
+  
+  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    switch indexPath.row {
+    case 0: return 310
+    case 1:
+      if let resourceType = resourceType {
+        return resourceType == .characters ? 0 : 60
+      }
+    case 2: return 160
+    case 3: return 60
+    default: break
+    }
+    return 100
+  }
+  
+}
+
+extension DetailStarwarsResourcesController: UITextFieldDelegate {
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    let currentText = textField.text ?? ""
+    guard let stringRange = Range(range, in: currentText) else { return false }
+    
+    let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+    
+    costSegmentedControl.isEnabled = updatedText.isEmpty ? false : true
+  
+    return updatedText.count < 10
+  }
+  
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    return true
+  }
+  
+}
+
+extension Double {
+  func rounded(toPlaces places:Int) -> Double {
+    let divisor = pow(10.0, Double(places))
+    return (self * divisor).rounded() / divisor
+  }
 }
 
 extension DetailStarwarsResourcesController: UIPickerViewDelegate {
@@ -352,5 +430,7 @@ extension DetailStarwarsResourcesController: UIPickerViewDelegate {
       }
     }
   }
+  
 }
+
 

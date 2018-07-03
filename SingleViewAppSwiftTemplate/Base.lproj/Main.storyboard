@@ -170,11 +170,11 @@
                         <sections>
                             <tableViewSection id="SjO-GM-xbD">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="320" id="iGP-0K-ag6">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="320"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="310" id="iGP-0K-ag6">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="310"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iGP-0K-ag6" id="iGe-9P-peW">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="319.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="309.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpx-A4-XUx">
@@ -238,7 +238,7 @@
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="LLx-cx-Lml" customClass="SegmentedControl" customModule="SingleViewAppSwiftTemplate" customModuleProvider="target">
+                                                                <segmentedControl opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="LLx-cx-Lml" customClass="SegmentedControl" customModule="SingleViewAppSwiftTemplate" customModuleProvider="target">
                                                                     <rect key="frame" x="230" y="0.0" width="105" height="29"/>
                                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <segments>
@@ -251,6 +251,9 @@
                                                                             <real key="value" value="13"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="convertCost" destination="j5X-fN-wK4" eventType="valueChanged" id="jvl-0s-n6F"/>
+                                                                    </connections>
                                                                 </segmentedControl>
                                                             </subviews>
                                                         </stackView>
@@ -297,6 +300,9 @@
                                                                             <real key="value" value="13"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="convertHeight" destination="j5X-fN-wK4" eventType="valueChanged" id="FNB-xM-xoQ"/>
+                                                                    </connections>
                                                                 </segmentedControl>
                                                             </subviews>
                                                         </stackView>
@@ -441,15 +447,50 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="180" id="zZB-gh-pcY">
-                                        <rect key="frame" x="0.0" y="320" width="375" height="180"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="60" id="aMk-ao-UvS">
+                                        <rect key="frame" x="0.0" y="310" width="375" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aMk-ao-UvS" id="1DY-y3-OtY">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="r80-ry-F78">
+                                                    <rect key="frame" x="16" y="15" width="300" height="30"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exchange Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ga7-on-6MB">
+                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jWl-n5-cgI">
+                                                            <rect key="frame" x="150" y="0.0" width="150" height="30"/>
+                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                                            <connections>
+                                                                <outlet property="delegate" destination="j5X-fN-wK4" id="ivR-Dw-9HG"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="r80-ry-F78" firstAttribute="centerY" secondItem="1DY-y3-OtY" secondAttribute="centerY" id="AOT-jN-Gyo"/>
+                                                <constraint firstItem="r80-ry-F78" firstAttribute="width" secondItem="1DY-y3-OtY" secondAttribute="width" multiplier="0.8" id="eXa-en-ie4"/>
+                                                <constraint firstItem="r80-ry-F78" firstAttribute="leading" secondItem="1DY-y3-OtY" secondAttribute="leading" constant="16" id="twp-Dr-SUe"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="160" id="zZB-gh-pcY">
+                                        <rect key="frame" x="0.0" y="370" width="375" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zZB-gh-pcY" id="Rcp-VY-306">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="179.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="159.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="umA-7b-Zah">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="179.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="159.5"/>
                                                 </pickerView>
                                             </subviews>
                                             <constraints>
@@ -461,15 +502,15 @@
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="100" id="1Jh-dh-ehY">
-                                        <rect key="frame" x="0.0" y="500" width="375" height="100"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="60" id="1Jh-dh-ehY">
+                                        <rect key="frame" x="0.0" y="530" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Jh-dh-ehY" id="Mqe-YM-YGg">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Y6X-g4-pi5">
-                                                    <rect key="frame" x="16" y="28" width="300" height="43"/>
+                                                    <rect key="frame" x="16" y="8.5" width="300" height="43"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Cq1-ge-EAV">
                                                             <rect key="frame" x="0.0" y="0.0" width="300" height="21.5"/>
@@ -530,6 +571,7 @@
                     <navigationItem key="navigationItem" title="Characters" id="RgN-TI-aUC"/>
                     <connections>
                         <outlet property="costSegmentedControl" destination="LLx-cx-Lml" id="29D-Rc-DU2"/>
+                        <outlet property="exchangeRateTextField" destination="jWl-n5-cgI" id="Gts-EJ-Ljl"/>
                         <outlet property="labelFive" destination="GaE-zx-Kuc" id="aNE-13-qXL"/>
                         <outlet property="labelFour" destination="PVw-xw-qje" id="oKa-kR-Dau"/>
                         <outlet property="labelOne" destination="MTz-gi-udZ" id="3ow-lh-uWy"/>
