@@ -64,6 +64,7 @@ class DetailStarwarsResourcesController: UITableViewController {
       }
     }
   }
+  var charactersCount = Int()
   
   var vehiclesDataSource = GenericDataSource<Vehicle>(collection: [])
   var vehicles: [Vehicle] = [] {
@@ -77,6 +78,7 @@ class DetailStarwarsResourcesController: UITableViewController {
       }
     }
   }
+  var vehiclesCount = Int()
   
   var starshipsDataSource = GenericDataSource<Starship>(collection: [])
   var starships: [Starship] = [] {
@@ -90,6 +92,7 @@ class DetailStarwarsResourcesController: UITableViewController {
       }
     }
   }
+  var starshipsCount = Int()
   
   var resourceType: ResourceType?
   
@@ -170,10 +173,13 @@ class DetailStarwarsResourcesController: UITableViewController {
       self.spinner.stop()
       switch response {
       case .success(let characters):
-        guard let characters = characters?.results else { return }
-        self.characters = characters
-        guard let firstCharacter = self.characters.first else { return }
-        self.getCharacter(byId: firstCharacter.idByURL)
+        guard let count = characters?.count, let characters = characters?.results else { return }
+        self.characters.append(contentsOf: characters)
+        self.charactersCount = count
+        if self.characters.count <= 10 {
+          guard let firstCharacter = characters.first else { return }
+          self.getCharacter(byId: firstCharacter.idByURL)
+        }
       case .failure(let error):
         print(error)
       }
@@ -186,10 +192,14 @@ class DetailStarwarsResourcesController: UITableViewController {
       self.spinner.stop()
       switch response {
       case .success(let starships):
-        guard let starships = starships?.results else { return }
-        self.starships = starships
-        guard let firstStarship = self.starships.first else { return }
-        self.getStarship(byId: firstStarship.idByURL)
+        guard let count = starships?.count, let starships = starships?.results else { return }
+        self.starships.append(contentsOf: starships)
+        self.starshipsCount = count
+        
+        if self.starships.count <= 10 {
+          guard let firstStarship = self.starships.first else { return }
+          self.getStarship(byId: firstStarship.idByURL)
+        }
       case .failure(let error):
         print(error)
       }
@@ -202,10 +212,14 @@ class DetailStarwarsResourcesController: UITableViewController {
       self.spinner.stop()
       switch response {
       case .success(let vehicles):
-        guard let vehicles = vehicles?.results else { return }
-        self.vehicles = vehicles
-        guard let firstVehicle = self.vehicles.first else { return }
-        self.getVehicle(byId: firstVehicle.idByURL)
+        guard let count = vehicles?.count, let vehicles = vehicles?.results else { return }
+        self.vehicles.append(contentsOf: vehicles)
+        self.vehiclesCount = count
+        
+        if self.vehicles.count <= 10 {
+          guard let firstVehicle = self.vehicles.first else { return }
+          self.getVehicle(byId: firstVehicle.idByURL)
+        }
       case .failure(let error):
         print(error)
       }
@@ -349,7 +363,6 @@ class DetailStarwarsResourcesController: UITableViewController {
   
   
   @IBAction func convertHeight() {
-  
     if let string = valueThree.text, let height = Double(string) {
       if selectedLengthType == "English" {
         let value = Measurement(value: height, unit: UnitLength.centimeters).converted(to: UnitLength.inches).value.rounded(toPlaces: 1)
@@ -372,65 +385,13 @@ class DetailStarwarsResourcesController: UITableViewController {
     case 3: return 60
     default: break
     }
-    return 100
+    return 60
   }
   
 }
 
-extension DetailStarwarsResourcesController: UITextFieldDelegate {
-  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    let currentText = textField.text ?? ""
-    guard let stringRange = Range(range, in: currentText) else { return false }
-    
-    let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-    
-    costSegmentedControl.isEnabled = updatedText.isEmpty ? false : true
-  
-    return updatedText.count < 10
-  }
-  
-  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    textField.resignFirstResponder()
-    return true
-  }
-  
-}
 
-extension Double {
-  func rounded(toPlaces places:Int) -> Double {
-    let divisor = pow(10.0, Double(places))
-    return (self * divisor).rounded() / divisor
-  }
-}
 
-extension DetailStarwarsResourcesController: UIPickerViewDelegate {
-  func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    if let resourceType = resourceType {
-      switch resourceType {
-      case .characters: return self.characters[row].name
-      case .starships: return self.starships[row].name
-      case .vehicles: return self.vehicles[row].name
-      }
-    }
-    return nil
-  }
-  
-  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    if let resourceType = resourceType {
-      switch resourceType {
-      case .characters:
-        let id = self.characters[row].idByURL
-        getCharacter(byId: id)
-      case .starships:
-        let id = self.starships[row].idByURL
-        getStarship(byId: id)
-      case .vehicles:
-        let id = self.vehicles[row].idByURL
-        getVehicle(byId: id)
-      }
-    }
-  }
-  
-}
+
 
 

@@ -29,5 +29,6 @@ struct Vehicle: Codable, TransportCraft {
 }
 
 struct VehicleResult: Codable {
+  let count: Int
   let results: [Vehicle]?
 }

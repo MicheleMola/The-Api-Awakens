@@ -29,5 +29,6 @@ struct Starship: Codable, TransportCraft {
 }
 
 struct StarshipResult: Codable {
+  let count: Int
   let results: [Starship]?
 }

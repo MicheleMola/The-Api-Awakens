@@ -60,5 +60,6 @@ extension Character {
 }
 
 struct CharacterResult: Codable {
+  let count: Int
   let results: [Character]?
 }
