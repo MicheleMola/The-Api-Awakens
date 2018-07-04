@@ -15,7 +15,11 @@ extension DetailStarwarsResourcesController: UITextFieldDelegate {
     
     let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
     
-    costSegmentedControl.isEnabled = updatedText.isEmpty ? false : true
+    if let textToDouble = Double(updatedText) {
+      costSegmentedControl.isEnabled = textToDouble < 1 ? false : true
+    } else {
+      costSegmentedControl.isEnabled = false
+    }
     
     return updatedText.count < 10
   }

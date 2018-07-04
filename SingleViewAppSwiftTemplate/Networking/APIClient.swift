@@ -20,7 +20,15 @@ extension APIClient {
     
     let task = session.dataTask(with: request) { data, response, error in
       if let error = error as? URLError {
-        print("error code: ", error.code)
+        switch error.code {
+        case .networkConnectionLost:
+          completion(nil, .connectionLost)
+        case .notConnectedToInternet:
+          completion(nil, .notConnectToInternet)
+        default:
+          completion(nil, .requestFailed)
+          return
+        }
       }
       
       guard let httpResponse = response as? HTTPURLResponse else {

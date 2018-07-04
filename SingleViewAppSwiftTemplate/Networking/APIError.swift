@@ -14,4 +14,6 @@ enum APIError: String, Error {
   case invalidData = "Invalid Data"
   case responseUnsuccessful = "Response Unsuccessful"
   case jsonParsingFailure = "JSON Parsing Failure"
+  case connectionLost = "Lost Network Connection"
+  case notConnectToInternet = "No Network Connection"
 }

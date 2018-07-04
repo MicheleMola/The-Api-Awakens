@@ -181,7 +181,7 @@ class DetailStarwarsResourcesController: UITableViewController {
           self.getCharacter(byId: firstCharacter.idByURL)
         }
       case .failure(let error):
-        print(error)
+        self.presentAlert(withMessage: error.rawValue)
       }
     }
   }
@@ -201,7 +201,7 @@ class DetailStarwarsResourcesController: UITableViewController {
           self.getStarship(byId: firstStarship.idByURL)
         }
       case .failure(let error):
-        print(error)
+        self.presentAlert(withMessage: error.rawValue)
       }
     }
   }
@@ -221,7 +221,7 @@ class DetailStarwarsResourcesController: UITableViewController {
           self.getVehicle(byId: firstVehicle.idByURL)
         }
       case .failure(let error):
-        print(error)
+        self.presentAlert(withMessage: error.rawValue)
       }
     }
   }
@@ -234,7 +234,7 @@ class DetailStarwarsResourcesController: UITableViewController {
         guard let character = character else { return }
         self.getOtherInfo(byCharacter: character)
       case .failure(let error):
-        print(error)
+        self.presentAlert(withMessage: error.rawValue)
       }
     }
   }
@@ -254,7 +254,7 @@ class DetailStarwarsResourcesController: UITableViewController {
         guard let planet = planet else { return }
         planetName = planet.name
       case .failure(let error):
-        print(error)
+        self.presentAlert(withMessage: error.rawValue)
       }
     }
     
@@ -268,7 +268,7 @@ class DetailStarwarsResourcesController: UITableViewController {
           guard let names = names else { return }
           vehiclesName =  names.joined(separator: " - ")
         case .failure(let error):
-          print(error)
+          self.presentAlert(withMessage: error.rawValue)
         }
       }
     }
@@ -283,7 +283,7 @@ class DetailStarwarsResourcesController: UITableViewController {
           guard let names = names else { return }
           starshipsName =  names.joined(separator: " - ")
         case .failure(let error):
-          print(error)
+          self.presentAlert(withMessage: error.rawValue)
         }
       }
     }
@@ -305,7 +305,7 @@ class DetailStarwarsResourcesController: UITableViewController {
         guard let starship = starship else { return }
         self.populateQuickBar(byResource: starship)
       case .failure(let error):
-        print(error)
+        self.presentAlert(withMessage: error.rawValue)
       }
     }
   }
@@ -319,7 +319,7 @@ class DetailStarwarsResourcesController: UITableViewController {
         guard let vehicle = vehicle else { return }
         self.populateQuickBar(byResource: vehicle)
       case .failure(let error):
-        print(error)
+        self.presentAlert(withMessage: error.rawValue)
       }
     }
   }
@@ -348,7 +348,7 @@ class DetailStarwarsResourcesController: UITableViewController {
   }
   
   @IBAction func convertCost() {
-    if let exchangeRateString = exchangeRateTextField.text, let exchangeRateDouble = Double(exchangeRateString), let cost = valueTwo.text, let costDouble = Double(cost) {
+    if let exchangeRateString = exchangeRateTextField.text, let exchangeRateDouble = Double(exchangeRateString), let cost = valueTwo.text, let costDouble = Double(cost), exchangeRateDouble > 0 {
       if selectedCostType == "USD" {
         let value = costDouble * exchangeRateDouble
         valueTwo.text = String(value)
@@ -357,7 +357,7 @@ class DetailStarwarsResourcesController: UITableViewController {
         valueTwo.text = String(value)
       }
     } else {
-      // Alert
+      presentAlert(withMessage: "Cost Converter Error")
     }
   }
   
@@ -371,6 +371,8 @@ class DetailStarwarsResourcesController: UITableViewController {
         let value = Measurement(value: height, unit: UnitLength.inches).converted(to: UnitLength.centimeters).value.rounded(toPlaces: 1)
         valueThree.text = String(value)
       }
+    } else {
+      presentAlert(withMessage: "Converter Error")
     }
   }
   
@@ -386,6 +388,13 @@ class DetailStarwarsResourcesController: UITableViewController {
     default: break
     }
     return 60
+  }
+  
+  func presentAlert(withMessage message: String) {
+    let alertController = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+    alertController.addAction(UIAlertAction(title: "Close", style: .destructive, handler: nil))
+    
+    self.present(alertController, animated: true, completion: nil)
   }
   
 }
