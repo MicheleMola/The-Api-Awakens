@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3A8AADC91DF9B85E00A2B931 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8AADC81DF9B85E00A2B931 /* AppDelegate.swift */; };
-		3A8AADCB1DF9B85E00A2B931 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8AADCA1DF9B85E00A2B931 /* ViewController.swift */; };
 		3A8AADCE1DF9B85E00A2B931 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A8AADCC1DF9B85E00A2B931 /* Main.storyboard */; };
 		3A8AADD01DF9B85E00A2B931 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A8AADCF1DF9B85E00A2B931 /* Assets.xcassets */; };
 		3A8AADD31DF9B85E00A2B931 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A8AADD11DF9B85E00A2B931 /* LaunchScreen.storyboard */; };
@@ -55,7 +54,6 @@
 /* Begin PBXFileReference section */
 		3A8AADC51DF9B85E00A2B931 /* SingleViewAppSwiftTemplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SingleViewAppSwiftTemplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8AADC81DF9B85E00A2B931 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3A8AADCA1DF9B85E00A2B931 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3A8AADCD1DF9B85E00A2B931 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3A8AADCF1DF9B85E00A2B931 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A8AADD21DF9B85E00A2B931 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -190,7 +188,6 @@
 		DE8ED66620DCF549004CD42A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3A8AADCA1DF9B85E00A2B931 /* ViewController.swift */,
 				DE8ED66720DCF57E004CD42A /* ListStarwarsResourcesController.swift */,
 				DE8ED66C20DD2847004CD42A /* DetailStarwarsController.swift */,
 			);
@@ -398,7 +395,6 @@
 				DE8ED66820DCF57E004CD42A /* ListStarwarsResourcesController.swift in Sources */,
 				DE6A599720E79FBE00BB6E48 /* CharacterViewModel.swift in Sources */,
 				DE9516C620DBE34D009CA12F /* APIError.swift in Sources */,
-				3A8AADCB1DF9B85E00A2B931 /* ViewController.swift in Sources */,
 				DE9E782A20DF91460099872F /* Planet.swift in Sources */,
 				DE8ED66D20DD2847004CD42A /* DetailStarwarsController.swift in Sources */,
 				3A8AADC91DF9B85E00A2B931 /* AppDelegate.swift in Sources */,

@@ -176,6 +176,7 @@ class DetailStarwarsResourcesController: UITableViewController {
         guard let count = characters?.count, let characters = characters?.results else { return }
         self.characters.append(contentsOf: characters)
         self.charactersCount = count
+        
         if self.characters.count <= 10 {
           guard let firstCharacter = characters.first else { return }
           self.getCharacter(byId: firstCharacter.idByURL)
@@ -229,6 +230,7 @@ class DetailStarwarsResourcesController: UITableViewController {
   func getCharacter(byId id: String) {
     spinner.start()
     client.getCharacter(withId: id) { [unowned self] response in
+      self.resetSegmentedControls()
       switch response {
       case .success(let character):
         guard let character = character else { return }
@@ -300,6 +302,7 @@ class DetailStarwarsResourcesController: UITableViewController {
     spinner.start()
     client.getStarship(withId: id) { response in
       self.spinner.stop()
+      self.resetSegmentedControls()
       switch response {
       case .success(let starship):
         guard let starship = starship else { return }
@@ -314,6 +317,7 @@ class DetailStarwarsResourcesController: UITableViewController {
     spinner.start()
     client.getVehicle(withId: id) { response in
       self.spinner.stop()
+      self.resetSegmentedControls()
       switch response {
       case .success(let vehicle):
         guard let vehicle = vehicle else { return }
@@ -322,6 +326,11 @@ class DetailStarwarsResourcesController: UITableViewController {
         self.presentAlert(withMessage: error.rawValue)
       }
     }
+  }
+  
+  func resetSegmentedControls() {
+    lengthSegmentedControl.selectedSegmentIndex = 1
+    costSegmentedControl.selectedSegmentIndex = 1
   }
   
   func populateQuickBar(byResource resource: Any) {
@@ -364,11 +373,15 @@ class DetailStarwarsResourcesController: UITableViewController {
   
   @IBAction func convertHeight() {
     if let string = valueThree.text, let height = Double(string) {
+      var unitMetric = UnitLength.meters
+      if let resourceType = resourceType {
+        if resourceType == .characters { unitMetric = UnitLength.centimeters }
+      }
       if selectedLengthType == "English" {
-        let value = Measurement(value: height, unit: UnitLength.centimeters).converted(to: UnitLength.inches).value.rounded(toPlaces: 1)
+        let value = Measurement(value: height, unit: unitMetric).converted(to: UnitLength.inches).value.rounded(toPlaces: 2)
         valueThree.text = String(value)
       } else {
-        let value = Measurement(value: height, unit: UnitLength.inches).converted(to: UnitLength.centimeters).value.rounded(toPlaces: 1)
+        let value = Measurement(value: height, unit: UnitLength.inches).converted(to: unitMetric).value.rounded(toPlaces: 2)
         valueThree.text = String(value)
       }
     } else {
