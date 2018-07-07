@@ -456,16 +456,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="r80-ry-F78">
-                                                    <rect key="frame" x="16" y="15" width="300" height="30"/>
+                                                    <rect key="frame" x="16" y="15" width="337.5" height="30"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exchange Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ga7-on-6MB">
-                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="169" height="30"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jWl-n5-cgI">
-                                                            <rect key="frame" x="150" y="0.0" width="150" height="30"/>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Rate to Convert" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jWl-n5-cgI">
+                                                            <rect key="frame" x="169" y="0.0" width="168.5" height="30"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
@@ -478,7 +478,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="r80-ry-F78" firstAttribute="centerY" secondItem="1DY-y3-OtY" secondAttribute="centerY" id="AOT-jN-Gyo"/>
-                                                <constraint firstItem="r80-ry-F78" firstAttribute="width" secondItem="1DY-y3-OtY" secondAttribute="width" multiplier="0.8" id="eXa-en-ie4"/>
+                                                <constraint firstItem="r80-ry-F78" firstAttribute="width" secondItem="1DY-y3-OtY" secondAttribute="width" multiplier="0.9" id="eXa-en-ie4"/>
                                                 <constraint firstItem="r80-ry-F78" firstAttribute="leading" secondItem="1DY-y3-OtY" secondAttribute="leading" constant="16" id="twp-Dr-SUe"/>
                                             </constraints>
                                         </tableViewCellContentView>
